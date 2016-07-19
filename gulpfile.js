@@ -12,5 +12,11 @@ gulp.task('build', function () {
   .transform('babelify', {presets: ['es2015', 'react']})
   .bundle()
   .pipe(source('bundle.js'))
-  .pipe(gulp.dest('dest/js'));
+  .pipe(gulp.dest('public/js'));
 });
+
+gulp.task('watch', function () {
+  gulp.watch('./src/*.jsx', ['build']);
+});
+
+// gulp.task('default', ['build']);

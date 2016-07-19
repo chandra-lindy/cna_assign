@@ -12,7 +12,6 @@ const beds = ['2','4','6','8A','8B','1A','1B','10A','10B','3A' +
 
 
 function remove(emptyBeds, beds) {
-  const formated = emptyBeds.join(',').toUpperCase().join(',');
   return beds.filter(el => {
     if (formated.indexOf(el) < 0) return true;
   });
