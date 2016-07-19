@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 
 export default class Nurses extends Component {
 
   render() {
     return (
-      <div>
-        <h1>CNA Assign</h1>
-          <input name="emptyBeds"
-            type="text"
-            placeholder="Empty beds ..."
-            onKeyDown={this.props.enter}
-            autoFocus={true}>
-          </input>
+      <div className="container">
           {this.props.nurses.map((el, i) => {
-            return <p key={i}>name: {el.name} role: {el.role}</p>;
+            return (
+              <div className="nurse" key={i}>
+                <input
+                  type="checkbox"
+                  value={el.name}
+                  onChange={this.props.select}>
+                </input><span className="name">{el.name}</span> role: {el.role}
+              </div>
+            );
           })}
       </div>
     );
