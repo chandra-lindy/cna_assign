@@ -8,19 +8,23 @@ function index(req, res) {
 }
 
 function show(req, res) {
-  Nurses.findOne({name: req.body.name}, function(err, nurse){
+  Nurses.findOne({name: req.body.first}, function(err, nurse){
     if(!nurse) res.sendStatus(404);
     else res.json(nurse);
   })
 }
 
-function post(req,res) {
-  // console.log('name ', req.body.name, 'role', req.body.role, 'body object ', req.body);
-  console.log(req.body);
-  Nurses.create({name: req.body.name, role: req.body.role}, function(err, result){
-    // console.log('event created', result);
+function post(req, res) {
+  Nurses.create({first: req.body.first, last: req.body.last}, function(err, result){
     res.send('posted');
   })
 }
 
-module.exports = { index, show, post };
+function remove(req, res) {
+  console.log(req.body.first, req.body.last);
+  Nurses.remove({first: req.body.first, last: req.body.last}, function(err, result) {
+    res.send('deleted');
+  })
+}
+
+module.exports = { index, show, post, remove };

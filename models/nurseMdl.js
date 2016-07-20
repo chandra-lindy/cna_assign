@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost/db');
 
 const nurseSchema = new Schema({
-  'name':	String,
-  'role':	String,
+  'first': String,
+  'last':	String,
 });
 
 const nurse = mongoose.model('nurse', nurseSchema);

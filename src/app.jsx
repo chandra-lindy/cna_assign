@@ -45,13 +45,13 @@ class App extends Component {
 
   enter(event) {
     if(event.keyCode === 13) {
-      let value = event.target.value.toLowerCase();
+      let value = event.target.value;
 
       if (value.slice(0, 3) === 'add') {
         value = value.split(' ');
         const obj = {
-          name: value[1],
-          role: value[2]
+          first: value[1],
+          last: value[2]
         };
         const post = $.ajax({
           method: 'POST',
@@ -61,27 +61,46 @@ class App extends Component {
         post.then(() => {
           this.refresh();
         });
+        event.target.value = '';
 
       } else if (value.slice(0, 5) === 'empty') {
         let emptyBeds = value.toUpperCase().split(' ');
         emptyBeds.shift();
-        const occupied = remove(emptyBeds, this.state.beds);
+        const occupied = remove(emptyBeds, [...this.state.beds]);
         const census = occupied.length;
-        console.log('emptyBeds ', emptyBeds)
-        console.log('occupied ', occupied);
-        console.log('census ', census);
         this.setState({
           occupied: occupied,
           census: census,
           emptyBeds: emptyBeds,
           view: 'display'
         });
-
+        event.target.value = '';
       } else if (value === 'clear') {
+        event.target.value = '';
         this.reset();
       } else if (value === 'assign') {
+        event.target.value = '';
         this.assign();
-      } else this.setState({view: value});
+      } else if (value.slice(0, 6) === 'remove') {
+        value = value.split(' ');
+        const obj = {
+          first: value[1],
+          last: value[2]
+        };
+        console.log(obj);
+        const post = $.ajax({
+          method: 'DELETE',
+          url: '/nurse',
+          data: obj
+        });
+        post.then(() => {
+          this.refresh();
+        });
+        event.target.value = '';
+      } else {
+        event.target.value = '';
+        this.setState({view: value});
+      }
     }
 
     function remove(emptyBeds, beds) {
@@ -92,36 +111,69 @@ class App extends Component {
   }
 
   assign() {
-    console.log("we're in!")
-    const occupied = this.state.occupied;
+    const occupied = [...this.state.occupied];
     const census = occupied.length;
-    const nurses = this.state.onduty;
+    const nurses = [...this.state.onduty];
     let assignment = [];
-    console.log('occupied ', occupied);
-    console.log('census ', census);
-    console.log('nurses', nurses);
+
     if (census % nurses.length === 0) {
       // even spread
-      const numOfNurses = nurses.length;
-      const patientsPer = census / numOfNurses;
+      const patientsPer = census / nurses.length;
       let j = 0;
       let k = patientsPer;
+
       for (let i = 0; i < nurses.length; i++) {
         assignment.push(occupied.slice(j, k));
         j += patientsPer;
         k += patientsPer;
       }
+
     } else {
-      // un even spread
+      // uneven spread
+      const occupied = [...this.state.occupied];
+      const census = occupied.length;
+      const nurses = [...this.state.onduty];
+      const longRuns = census % nurses.length;
+      const shortRuns = nurses.length - census % nurses.length;
+      const longPatientsPer = Math.floor(census / nurses.length) + 1;
+      const shortPatientsPer = Math.floor(census / nurses.length);
+      const spread = randomSpread([shortRuns, shortPatientsPer, longRuns, longPatientsPer]);
+
+      for (let i = 0; i < nurses.length; i++) {
+        assignment.push(occupied.splice(0, spread.shift()));
+      }
     }
-    console.log('assignment ', assignment);
+
     this.setState({assignment: assignment, view: 'assign'});
+
+    function randomSpread(arr) {
+    	let arr1 = [];
+    	let arr2 = [];
+    	let res = [];
+    	for (let i = 0; i < arr[0]; i++) {
+    		arr1.push(arr[1]);
+    	}
+    	for (let i = 0; i < arr[2]; i++) {
+    		arr2.push(arr[3])
+    	}
+    	res = arr1.concat(arr2);
+    	shuffle(res);
+    	return res;
+    }
+
+    function shuffle(a) {
+      var j, x, i;
+      for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+      }
+    }
   }
 
   select(event) {
     this.state.onduty.push(event.target.value);
-    console.log(event.target.value);
-    console.log(this.state.onduty);
     this.setState(this.state);
   }
 
@@ -142,14 +194,13 @@ class App extends Component {
         census: 98,
         view: '',
         emptyBeds: {},
+        assignment: [],
         nurses: data
       });
     });
   }
 
   render() {
-    console.log(this.state.view);
-    console.log(this.state.assignment)
     switch (this.state.view) {
       case 'nurses':
         return (
@@ -161,11 +212,10 @@ class App extends Component {
           </div>
         );
       case 'assign':
-      console.log('got here')
         return (
           <div>
             <Input enter={this.enter}/>
-            <Assign assignment={this.state.assignment}/>
+            <Assign assignment={this.state.assignment} nurses={this.state.onduty}/>
           </div>
         );
       case 'display':
