@@ -4,15 +4,21 @@ import Assign from './assign.jsx';
 import Nurses from './nurses.jsx';
 import Input from './input.jsx';
 import Display from './display.jsx';
+import style from '../public/style.css';
 
 class App extends Component {
   constructor(props) {
     super(props)
+
     this.enter = this.enter.bind(this);
     this.refresh = this.refresh.bind(this);
     this.select = this.select.bind(this);
     this.reset = this.reset.bind(this);
     this.assign = this.assign.bind(this);
+    this.add = this.add.bind(this);
+    this.remove = this.remove.bind(this);
+    this.empty = this.empty.bind(this);
+
     this.state = {
       beds: ['2','4','6','8A','8B','1A','1B','10A','10B','3A'
       ,'3B','12A','12B','5A','5B','14A','14B','7A','7B','16A','16B'
@@ -48,33 +54,11 @@ class App extends Component {
       let value = event.target.value;
 
       if (value.slice(0, 3) === 'add') {
-        value = value.split(' ');
-        const obj = {
-          first: value[1],
-          last: value[2]
-        };
-        const post = $.ajax({
-          method: 'POST',
-          url: '/nurse',
-          data: obj
-        });
-        post.then(() => {
-          this.refresh();
-        });
         event.target.value = '';
-
+        this.add(value);
       } else if (value.slice(0, 5) === 'empty') {
-        let emptyBeds = value.toUpperCase().split(' ');
-        emptyBeds.shift();
-        const occupied = remove(emptyBeds, [...this.state.beds]);
-        const census = occupied.length;
-        this.setState({
-          occupied: occupied,
-          census: census,
-          emptyBeds: emptyBeds,
-          view: 'display'
-        });
         event.target.value = '';
+        this.empty(value);
       } else if (value === 'clear') {
         event.target.value = '';
         this.reset();
@@ -82,32 +66,65 @@ class App extends Component {
         event.target.value = '';
         this.assign();
       } else if (value.slice(0, 6) === 'remove') {
-        value = value.split(' ');
-        const obj = {
-          first: value[1],
-          last: value[2]
-        };
-        console.log(obj);
-        const post = $.ajax({
-          method: 'DELETE',
-          url: '/nurse',
-          data: obj
-        });
-        post.then(() => {
-          this.refresh();
-        });
         event.target.value = '';
+        this.remove(value);
       } else {
         event.target.value = '';
         this.setState({view: value});
       }
     }
 
+  }
+
+  add(value) {
+    value = value.split(' ');
+    const obj = {
+      first: value[1],
+      last: value[2]
+    };
+    const post = $.ajax({
+      method: 'POST',
+      url: '/nurse',
+      data: obj
+    });
+    post.then(() => {
+      this.refresh();
+    });
+  }
+
+  remove(value) {
+    value = value.split(' ');
+    const obj = {
+      first: value[1],
+      last: value[2]
+    };
+    console.log(obj);
+    const post = $.ajax({
+      method: 'DELETE',
+      url: '/nurse',
+      data: obj
+    });
+    post.then(() => {
+      this.refresh();
+    });
+  }
+
+  empty(value) {
     function remove(emptyBeds, beds) {
       return beds.filter(el => {
         if (emptyBeds.indexOf(el) < 0) return true;
       });
     }
+    let emptyBeds = value.toUpperCase().split(' ');
+    emptyBeds.shift();
+    const occupied = remove(emptyBeds, [...this.state.beds]);
+    const census = occupied.length;
+    this.setState({
+      occupied: occupied,
+      census: census,
+      emptyBeds: emptyBeds,
+      view: 'display'
+    });
   }
 
   assign() {

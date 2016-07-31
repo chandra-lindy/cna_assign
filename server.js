@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -11,18 +12,13 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-// app.get('/signup', (req, res) => {
-//   res.sendFile(__dirname + '/public/signup.html');
-// });
-//
-// app.get('/login', (req, res) => {
-//   res.sendFile(__dirname + '/public/login.html');
-// });
-
 app.delete('/nurse', nurseCtrl.remove);
 app.get('/nurses', nurseCtrl.index);
 app.post('/nurse', nurseCtrl.post);
 
+mongoose.connect('mongodb://localhost/db', () => {
+  console.log('connected to local mongoDB');
+});
 
 app.listen(3000, function () {
   console.log('Express listening on port 3000');
@@ -30,6 +26,3 @@ app.listen(3000, function () {
 
 module.exports = app;
 
-function l(...args) {
-  console.log(...args);
-}
