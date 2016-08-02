@@ -218,38 +218,54 @@ class App extends Component {
   }
 
   render() {
-    switch (this.state.view) {
-      case 'nurses':
-        return (
-          <div>
-            <Input enter={this.enter}/>
-            <Nurses
-              nurses={this.state.nurses}
-              select={this.select}/>
-          </div>
-        );
-      case 'assign':
-        return (
-          <div>
-            <Input enter={this.enter}/>
-            <Assign assignment={this.state.assignment} nurses={this.state.onduty}/>
-          </div>
-        );
-      case 'display':
-        return (
+    const display = (
           <div>
             <Input enter={this.enter}/>
             <Display
               emptyBeds={this.state.emptyBeds}
-              census={this.state.census}/>
+              census={this.state.census}
+            />
           </div>
-        );
-      default:
-        return (
+      );
+
+    const input = (
+          <div>
+            <Input
+              enter={this.enter}
+            />
+          </div>
+      );
+
+    const nurses = (
           <div>
             <Input enter={this.enter}/>
+            <Nurses
+              nurses={this.state.nurses}
+              select={this.select}
+            />
           </div>
-        );
+      );
+
+    const assign = (
+          <div>
+            <Input
+              enter={this.enter}
+            />
+            <Assign
+              assignment={this.state.assignment}
+              nurses={this.state.onduty}
+            />
+          </div>
+      );
+    switch (this.state.view) {
+      case 'nurses':
+        return nurses;
+      case 'assign':
+        return assign;
+      case 'display':
+        return display;
+      default:
+        return input;
     }
   }
 }

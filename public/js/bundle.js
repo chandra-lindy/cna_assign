@@ -302,38 +302,54 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var display = _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_input2.default, { enter: this.enter }),
+	        _react2.default.createElement(_display2.default, {
+	          emptyBeds: this.state.emptyBeds,
+	          census: this.state.census
+	        })
+	      );
+
+	      var input = _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_input2.default, {
+	          enter: this.enter
+	        })
+	      );
+
+	      var nurses = _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_input2.default, { enter: this.enter }),
+	        _react2.default.createElement(_nurses3.default, {
+	          nurses: this.state.nurses,
+	          select: this.select
+	        })
+	      );
+
+	      var assign = _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_input2.default, {
+	          enter: this.enter
+	        }),
+	        _react2.default.createElement(_assign2.default, {
+	          assignment: this.state.assignment,
+	          nurses: this.state.onduty
+	        })
+	      );
 	      switch (this.state.view) {
 	        case 'nurses':
-	          return _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(_input2.default, { enter: this.enter }),
-	            _react2.default.createElement(_nurses3.default, {
-	              nurses: this.state.nurses,
-	              select: this.select })
-	          );
+	          return nurses;
 	        case 'assign':
-	          return _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(_input2.default, { enter: this.enter }),
-	            _react2.default.createElement(_assign2.default, { assignment: this.state.assignment, nurses: this.state.onduty })
-	          );
+	          return assign;
 	        case 'display':
-	          return _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(_input2.default, { enter: this.enter }),
-	            _react2.default.createElement(_display2.default, {
-	              emptyBeds: this.state.emptyBeds,
-	              census: this.state.census })
-	          );
+	          return display;
 	        default:
-	          return _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(_input2.default, { enter: this.enter })
-	          );
+	          return input;
 	      }
 	    }
 	  }]);
