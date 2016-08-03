@@ -4,7 +4,7 @@ import Assign from './assign.jsx';
 import Nurses from './nurses.jsx';
 import Input from './input.jsx';
 import Display from './display.jsx';
-import style from '../public/style.css';
+import '../public/style.css';
 
 class App extends Component {
   constructor(props) {
@@ -52,7 +52,6 @@ class App extends Component {
   enter(event) {
     if(event.keyCode === 13) {
       let value = event.target.value;
-
       if (value.slice(0, 3) === 'add') {
         event.target.value = '';
         this.add(value);
@@ -73,7 +72,6 @@ class App extends Component {
         this.setState({view: value});
       }
     }
-
   }
 
   add(value) {
@@ -128,6 +126,30 @@ class App extends Component {
   }
 
   assign() {
+    function randomSpread(arr) {
+    	let arr1 = [];
+    	let arr2 = [];
+    	let res = [];
+    	for (let i = 0; i < arr[0]; i++) {
+    		arr1.push(arr[1]);
+    	}
+    	for (let i = 0; i < arr[2]; i++) {
+    		arr2.push(arr[3])
+    	}
+    	res = arr1.concat(arr2);
+    	shuffle(res);
+    	return res;
+    }
+
+    function shuffle(a) {
+      var j, x, i;
+      for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+      }
+    }
     const occupied = [...this.state.occupied];
     const census = occupied.length;
     const nurses = [...this.state.onduty];
@@ -162,32 +184,7 @@ class App extends Component {
     }
 
     this.setState({assignment: assignment, view: 'assign'});
-
-    function randomSpread(arr) {
-    	let arr1 = [];
-    	let arr2 = [];
-    	let res = [];
-    	for (let i = 0; i < arr[0]; i++) {
-    		arr1.push(arr[1]);
-    	}
-    	for (let i = 0; i < arr[2]; i++) {
-    		arr2.push(arr[3])
-    	}
-    	res = arr1.concat(arr2);
-    	shuffle(res);
-    	return res;
-    }
-
-    function shuffle(a) {
-      var j, x, i;
-      for (i = a.length; i; i--) {
-        j = Math.floor(Math.random() * i);
-        x = a[i - 1];
-        a[i - 1] = a[j];
-        a[j] = x;
-      }
-    }
-  }
+  } // assign()
 
   select(event) {
     this.state.onduty.push(event.target.value);
@@ -257,6 +254,7 @@ class App extends Component {
             />
           </div>
       );
+
     switch (this.state.view) {
       case 'nurses':
         return nurses;
