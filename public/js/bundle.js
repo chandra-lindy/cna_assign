@@ -110,12 +110,12 @@
 	    _this.state = {
 	      beds: ['2', '4', '6', '8A', '8B', '1A', '1B', '10A', '10B', '3A', '3B', '12A', '12B', '5A', '5B', '14A', '14B', '7A', '7B', '16A', '16B', '9A', '9B', '18A', '18B', '11A', '11B', '20A', '20B', '22A', '22B', '22C', '22D', '15A', '15B', '15C', '17A', '17B', '19A', '19B', '21A', '21B', '24A', '24B', '24C', '23A', '23B', '26A', '26B', '26C', '25A', '25B', '27A', '27B', '29A', '29B', '31A', '31B', '28A', '28B', '28C', '30A', '30B', '33A', '33B', '32A', '32B', '35A', '35B', '34A', '34B', '37A', '37B', '36A', '36B', '39A', '39B', '38A', '38B', '41A', '41B', '40A', '40B', '43A', '43B', '42A', '42B', '45A', '45B', '47A', '47B', '46A', '46B', '44A', '44B', '44C', '48A', '48B'],
 	      onduty: [],
-	      occupied: {},
+	      occupied: [],
 	      census: 98,
 	      view: '',
-	      emptyBeds: {},
+	      emptyBeds: [],
 	      assignment: [],
-	      nurses: {},
+	      nurses: [],
 	      loggedIn: false
 	    };
 	    return _this;
@@ -21741,7 +21741,7 @@
 	          _react2.default.createElement(
 	            "h2",
 	            null,
-	            "Today's empty beds:"
+	            "Empty beds:"
 	          ),
 	          this.props.emptyBeds.map(function (el, i) {
 	            return _react2.default.createElement(
@@ -21757,7 +21757,7 @@
 	          _react2.default.createElement(
 	            "h2",
 	            null,
-	            "Today's Census: ",
+	            "Census: ",
 	            _react2.default.createElement(
 	              "span",
 	              { id: "census" },
@@ -21809,7 +21809,7 @@
 
 
 	// module
-	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n}\n\nh1 {\n  font-size: 32px;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.num {\n  font-size: 23px;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n}\n\n.container-2col {\n  display: inline-block;\n  margin: 0 auto;\n}\n\n.large-col {\n  width: 70%;\n}\n\n.small-col {\n  width: 30%;\n}\n\n#census {\n  font-size: 36px;\n}\n\n.hide {\n  display: none;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
+	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n}\n\nh1 {\n  font-size: 32px;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.num {\n  font-size: 23px;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n}\n\n.container-2col {\n  display: inline-block;\n  margin: 0 auto;\n}\n\n.large-col {\n  width: 80%;\n}\n\n.small-col {\n  width: 20%;\n}\n\n#census {\n  font-size: 28px;\n}\n\n.hide {\n  display: none;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
 
 	// exports
 

@@ -35,12 +35,12 @@ class App extends Component {
       ,'39B','38A','38B','41A','41B','40A','40B','43A','43B','42A','42B'
       ,'45A','45B','47A','47B','46A','46B','44A','44B','44C','48A','48B'],
       onduty: [],
-      occupied: {},
+      occupied: [],
       census: 98,
       view: '',
-      emptyBeds: {},
+      emptyBeds: [],
       assignment: [],
-      nurses: {},
+      nurses: [],
       loggedIn: false
     };
   }
