@@ -75,3 +75,9 @@ know who will be assigned which run before making your selection.
 The `assign` keyword when used after selecting the nurses and empty beds will
 display each assignment for each previously selected nurses in the order of
 nurse selection.
+
+### Clearing Inputs
+
+Use the `clear` keyword to clear all `nurses` selections and `empty` bed inputs
+in the event changes need to be made.  This will clear the slate and the app will
+behave as if you had just logged in.
