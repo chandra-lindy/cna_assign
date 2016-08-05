@@ -102,7 +102,7 @@ class App extends Component {
 
   login(value) {
     const username = value.split(' ')[1];
-    if (username === 's1akr') this.setState({ view: 'password' });
+    if (username === 'nurse') this.setState({ view: 'password' });
   }
 
   logout(value) {
@@ -110,7 +110,7 @@ class App extends Component {
   }
 
   validate(value) {
-    if (value === 's1akkin4668c') this.setState({ view: 'main', loggedIn: true });
+    if (value === 'betty') this.setState({ view: 'main', loggedIn: true });
   }
 
   add(value) {

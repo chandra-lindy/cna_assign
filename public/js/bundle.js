@@ -186,7 +186,7 @@
 	    key: 'login',
 	    value: function login(value) {
 	      var username = value.split(' ')[1];
-	      if (username === 's1akr') this.setState({ view: 'password' });
+	      if (username === 'nurse') this.setState({ view: 'password' });
 	    }
 	  }, {
 	    key: 'logout',
@@ -196,7 +196,7 @@
 	  }, {
 	    key: 'validate',
 	    value: function validate(value) {
-	      if (value === 's1akkin4668c') this.setState({ view: 'main', loggedIn: true });
+	      if (value === 'betty') this.setState({ view: 'main', loggedIn: true });
 	    }
 	  }, {
 	    key: 'add',
