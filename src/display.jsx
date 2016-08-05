@@ -4,8 +4,8 @@ export default class Display extends Component {
 
   render() {
     return (
-      <div className="container">
-          <div className="container-2col">
+      <div className="container display">
+          <div className="container-2col large-col">
             <h2>Today's empty beds:</h2>
               {this.props.emptyBeds.map((el, i) => {
                 return (
@@ -13,7 +13,7 @@ export default class Display extends Component {
                 );
               })}
           </div>
-          <div className="container-2col">
+          <div className="container-2col small-col">
             <h2>Today's Census: <span id="census">{this.props.census}</span></h2>
           </div>
       </div>

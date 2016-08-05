@@ -4,6 +4,7 @@ import Assign from './assign.jsx';
 import Nurses from './nurses.jsx';
 import Input from './input.jsx';
 import Display from './display.jsx';
+import Password from './password.jsx';
 import '../public/style.css';
 
 class App extends Component {
@@ -18,6 +19,10 @@ class App extends Component {
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
     this.empty = this.empty.bind(this);
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.validate = this.validate.bind(this);
+    this.enterPass = this.enterPass.bind(this);
 
     this.state = {
       beds: ['2','4','6','8A','8B','1A','1B','10A','10B','3A'
@@ -35,7 +40,8 @@ class App extends Component {
       view: '',
       emptyBeds: {},
       assignment: [],
-      nurses: {}
+      nurses: {},
+      loggedIn: false
     };
   }
 
@@ -50,9 +56,12 @@ class App extends Component {
   }
 
   enter(event) {
-    if(event.keyCode === 13) {
-      let value = event.target.value;
-      if (value.slice(0, 3) === 'add') {
+    let value = event.target.value;
+    if(event.keyCode === 13 && this.state.loggedIn) {
+      if (value.slice(0, 6) === 'logout') {
+        event.target.value = '';
+        this.logout(value);
+      } else if (value.slice(0, 3) === 'add') {
         event.target.value = '';
         this.add(value);
       } else if (value.slice(0, 5) === 'empty') {
@@ -71,7 +80,37 @@ class App extends Component {
         event.target.value = '';
         this.setState({view: value});
       }
+    } else if (event.keyCode === 13) {
+      if (value.slice(0, 5) === 'login') {
+        event.target.value = '';
+        this.login(value);
+      } else if (value.slice(0, 8) === 'password') {
+        event.target.value = '';
+        this.validate(value);
+      } else {
+        event.target.value = '';
+        this.setState({ view: 'error' });
+      }
     }
+  }
+
+  enterPass(event) {
+    if (event.keyCode === 13) {
+      this.validate(event.target.value);
+    }
+  }
+
+  login(value) {
+    const username = value.split(' ')[1];
+    if (username === 's1akr') this.setState({ view: 'password' });
+  }
+
+  logout(value) {
+    this.setState({ loggedIn: false });
+  }
+
+  validate(value) {
+    if (value === 's1akkin4668c') this.setState({ view: 'main', loggedIn: true });
   }
 
   add(value) {
@@ -216,44 +255,57 @@ class App extends Component {
 
   render() {
     const display = (
-          <div>
-            <Input enter={this.enter}/>
-            <Display
-              emptyBeds={this.state.emptyBeds}
-              census={this.state.census}
-            />
-          </div>
-      );
+      <div>
+        <Input enter={this.enter}/>
+        <Display
+          emptyBeds={this.state.emptyBeds}
+          census={this.state.census}
+        />
+      </div>
+    );
 
     const input = (
-          <div>
-            <Input
-              enter={this.enter}
-            />
-          </div>
-      );
+      <div>
+        <Input
+          enter={this.enter}
+        />
+      </div>
+    );
 
     const nurses = (
-          <div>
-            <Input enter={this.enter}/>
-            <Nurses
-              nurses={this.state.nurses}
-              select={this.select}
-            />
-          </div>
-      );
+      <div>
+        <Input enter={this.enter}/>
+        <Nurses
+          nurses={this.state.nurses}
+          select={this.select}
+        />
+      </div>
+    );
 
     const assign = (
-          <div>
-            <Input
-              enter={this.enter}
-            />
-            <Assign
-              assignment={this.state.assignment}
-              nurses={this.state.onduty}
-            />
-          </div>
-      );
+      <div>
+        <Input
+          enter={this.enter}
+        />
+        <Assign
+          assignment={this.state.assignment}
+          nurses={this.state.onduty}
+        />
+      </div>
+    );
+
+    const error = (
+      <div>
+       <Input enter={this.enter}/>
+       <div className="error container">Access denied!!</div>
+      </div>
+    );
+
+    const pass = (
+      <div>
+        <Password enter={this.enterPass}/>
+      </div>
+    );
 
     switch (this.state.view) {
       case 'nurses':
@@ -262,6 +314,10 @@ class App extends Component {
         return assign;
       case 'display':
         return display;
+      case 'password':
+        return pass;
+      case 'error':
+        return error;
       default:
         return input;
     }
