@@ -283,7 +283,7 @@
 	          a[j] = x;
 	        }
 	      }
-	      var occupied = [].concat(_toConsumableArray(this.state.occupied));
+	      var occupied = this.state.occupied.length ? [].concat(_toConsumableArray(this.state.occupied)) : [].concat(_toConsumableArray(this.state.beds));
 	      var census = occupied.length;
 	      var nurses = [].concat(_toConsumableArray(this.state.onduty));
 	      var assignment = [];
@@ -301,7 +301,7 @@
 	        }
 	      } else {
 	        // uneven spread
-	        var _occupied = [].concat(_toConsumableArray(this.state.occupied));
+	        var _occupied = this.state.occupied.length ? [].concat(_toConsumableArray(this.state.occupied)) : [].concat(_toConsumableArray(this.state.beds));
 	        var _census = _occupied.length;
 	        var _nurses = [].concat(_toConsumableArray(this.state.onduty));
 	        var longRuns = _census % _nurses.length;

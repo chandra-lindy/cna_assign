@@ -189,7 +189,7 @@ class App extends Component {
         a[j] = x;
       }
     }
-    const occupied = [...this.state.occupied];
+    const occupied = this.state.occupied.length ? [...this.state.occupied] : [...this.state.beds];
     const census = occupied.length;
     const nurses = [...this.state.onduty];
     let assignment = [];
@@ -208,7 +208,7 @@ class App extends Component {
 
     } else {
       // uneven spread
-      const occupied = [...this.state.occupied];
+      const occupied = this.state.occupied.length ? [...this.state.occupied] : [...this.state.beds];
       const census = occupied.length;
       const nurses = [...this.state.onduty];
       const longRuns = census % nurses.length;
