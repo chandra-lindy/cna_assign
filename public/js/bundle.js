@@ -66,15 +66,19 @@
 
 	var _input2 = _interopRequireDefault(_input);
 
-	var _display = __webpack_require__(176);
+	var _emptyBeds = __webpack_require__(177);
 
-	var _display2 = _interopRequireDefault(_display);
+	var _emptyBeds2 = _interopRequireDefault(_emptyBeds);
 
-	var _password = __webpack_require__(181);
+	var _census2 = __webpack_require__(178);
+
+	var _census3 = _interopRequireDefault(_census2);
+
+	var _password = __webpack_require__(179);
 
 	var _password2 = _interopRequireDefault(_password);
 
-	__webpack_require__(177);
+	__webpack_require__(180);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -349,10 +353,18 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_input2.default, { enter: this.enter }),
-	        _react2.default.createElement(_display2.default, {
-	          emptyBeds: this.state.emptyBeds,
-	          census: this.state.census
-	        })
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container' },
+	          _react2.default.createElement(_emptyBeds2.default, {
+	            classStr: 'container-2col large-col',
+	            emptyBeds: this.state.emptyBeds
+	          }),
+	          _react2.default.createElement(_census3.default, {
+	            classStr: 'container-2col small-col',
+	            census: this.state.census
+	          })
+	        )
 	      );
 
 	      var input = _react2.default.createElement(
@@ -21674,7 +21686,8 @@
 	exports.default = Input;
 
 /***/ },
-/* 176 */
+/* 176 */,
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21683,7 +21696,42 @@
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EmptyBeds = function EmptyBeds(props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: props.classStr },
+	    _react2.default.createElement(
+	      "h2",
+	      null,
+	      "Empty beds:"
+	    ),
+	    props.emptyBeds.map(function (el, i) {
+	      return _react2.default.createElement(
+	        "span",
+	        { className: "room", key: i },
+	        el
+	      );
+	    })
+	  );
+	};
+
+	exports.default = EmptyBeds;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
 	var _react = __webpack_require__(1);
 
@@ -21691,77 +21739,77 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var Census = function Census(props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: props.classStr },
+	    _react2.default.createElement(
+	      "h2",
+	      null,
+	      "Census: "
+	    ),
+	    _react2.default.createElement(
+	      "span",
+	      { id: "census" },
+	      props.census
+	    )
+	  );
+	};
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Display = function (_Component) {
-	  _inherits(Display, _Component);
-
-	  function Display() {
-	    _classCallCheck(this, Display);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Display).apply(this, arguments));
-	  }
-
-	  _createClass(Display, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "container display" },
-	        _react2.default.createElement(
-	          "div",
-	          { className: "container-2col large-col" },
-	          _react2.default.createElement(
-	            "h2",
-	            null,
-	            "Empty beds:"
-	          ),
-	          this.props.emptyBeds.map(function (el, i) {
-	            return _react2.default.createElement(
-	              "span",
-	              { className: "room", key: i },
-	              el
-	            );
-	          })
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "container-2col small-col" },
-	          _react2.default.createElement(
-	            "h2",
-	            null,
-	            "Census: ",
-	            _react2.default.createElement(
-	              "span",
-	              { id: "census" },
-	              this.props.census
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Display;
-	}(_react.Component);
-
-	exports.default = Display;
+	exports.default = Census;
 
 /***/ },
-/* 177 */
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Password = function Password(props) {
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "h1",
+	      null,
+	      "CNA Assign ..."
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      { id: "maininput" },
+	      _react2.default.createElement("input", {
+	        type: "password",
+	        placeholder: "Enter password here ...",
+	        onKeyDown: props.enter,
+	        autoFocus: true,
+	        id: "main"
+	      })
+	    )
+	  );
+	};
+
+	exports.default = Password;
+
+/***/ },
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(178);
+	var content = __webpack_require__(181);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(180)(content, {});
+	var update = __webpack_require__(183)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -21778,21 +21826,21 @@
 	}
 
 /***/ },
-/* 178 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(179)();
+	exports = module.exports = __webpack_require__(182)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n}\n\nh1 {\n  font-size: 32px;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.num {\n  font-size: 23px;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n}\n\n.container-2col {\n  display: inline-block;\n  margin: 0 auto;\n}\n\n.large-col {\n  width: 80%;\n}\n\n.small-col {\n  width: 20%;\n}\n\n#census {\n  font-size: 28px;\n}\n\n.hide {\n  display: none;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
+	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n}\n\nh1 {\n  font-size: 32px;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.num {\n  font-size: 23px;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n}\n\n.container-2col {\n  display: inline-block;\n  margin: 0 auto;\n}\n\n.large-col {\n  width: 87%;\n}\n\n.small-col {\n  width: 13%;\n}\n\n#census {\n  font-size: 28px;\n  display: inline-block;\n  margin-left: 15px;\n}\n\n.hide {\n  display: none;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 179 */
+/* 182 */
 /***/ function(module, exports) {
 
 	/*
@@ -21848,7 +21896,7 @@
 
 
 /***/ },
-/* 180 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -22098,47 +22146,6 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
-
-/***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Password = function Password(props) {
-	  return _react2.default.createElement(
-	    "div",
-	    null,
-	    _react2.default.createElement(
-	      "h1",
-	      null,
-	      "CNA Assign ..."
-	    ),
-	    _react2.default.createElement(
-	      "div",
-	      { id: "maininput" },
-	      _react2.default.createElement("input", {
-	        type: "password",
-	        placeholder: "Enter password here ...",
-	        onKeyDown: props.enter,
-	        autoFocus: true,
-	        id: "main"
-	      })
-	    )
-	  );
-	};
-
-	exports.default = Password;
 
 /***/ }
 /******/ ]);

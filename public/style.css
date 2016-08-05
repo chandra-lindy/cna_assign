@@ -90,15 +90,17 @@ input#main{
 }
 
 .large-col {
-  width: 80%;
+  width: 87%;
 }
 
 .small-col {
-  width: 20%;
+  width: 13%;
 }
 
 #census {
   font-size: 28px;
+  display: inline-block;
+  margin-left: 15px;
 }
 
 .hide {

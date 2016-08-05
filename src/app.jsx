@@ -3,7 +3,8 @@ import { render } from 'react-dom';
 import Assign from './assign.jsx';
 import Nurses from './nurses.jsx';
 import Input from './input.jsx';
-import Display from './display.jsx';
+import EmptyBeds from './emptyBeds.jsx';
+import Census from './census.jsx';
 import Password from './password.jsx';
 import '../public/style.css';
 
@@ -265,6 +266,7 @@ class App extends Component {
           <Census
             classStr='container-2col small-col'
             census={this.state.census}
+          />
         </div>
       </div>
     );
