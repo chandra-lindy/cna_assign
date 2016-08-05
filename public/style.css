@@ -75,15 +75,26 @@ input#main{
   border-radius: 5px;
 }
 
+.num {
+  font-size: 23px;
+}
+
 .name {
   font-size: 32px;
   margin-left: 10px;
 }
 
 .container-2col {
-  width: 50%;
   display: inline-block;
   margin: 0 auto;
+}
+
+.large-col {
+  width: 70%;
+}
+
+.small-col {
+  width: 30%;
 }
 
 #census {
@@ -92,4 +103,9 @@ input#main{
 
 .hide {
   display: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
 }

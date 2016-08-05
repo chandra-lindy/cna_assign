@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 
-export default class Run extends Component {
+const Run = (props) => (
+  <div className="run">
+    {props.run.map((el, i) => {
+      return <span className="room" key={i}>{el}</span>;
+    })}
+  </div>
+);
 
-  render() {
-    return (
-      <div className="run">
-        {this.props.run.map((el, i) => {
-          return <span className="room" key={i}>{el}</span>;
-        })}
-      </div>
-    );
-  }
-}
+export default Run;

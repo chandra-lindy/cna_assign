@@ -70,9 +70,11 @@
 
 	var _display2 = _interopRequireDefault(_display);
 
-	var _style = __webpack_require__(177);
+	var _password = __webpack_require__(181);
 
-	var _style2 = _interopRequireDefault(_style);
+	var _password2 = _interopRequireDefault(_password);
+
+	__webpack_require__(177);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -100,6 +102,10 @@
 	    _this.add = _this.add.bind(_this);
 	    _this.remove = _this.remove.bind(_this);
 	    _this.empty = _this.empty.bind(_this);
+	    _this.login = _this.login.bind(_this);
+	    _this.logout = _this.logout.bind(_this);
+	    _this.validate = _this.validate.bind(_this);
+	    _this.enterPass = _this.enterPass.bind(_this);
 
 	    _this.state = {
 	      beds: ['2', '4', '6', '8A', '8B', '1A', '1B', '10A', '10B', '3A', '3B', '12A', '12B', '5A', '5B', '14A', '14B', '7A', '7B', '16A', '16B', '9A', '9B', '18A', '18B', '11A', '11B', '20A', '20B', '22A', '22B', '22C', '22D', '15A', '15B', '15C', '17A', '17B', '19A', '19B', '21A', '21B', '24A', '24B', '24C', '23A', '23B', '26A', '26B', '26C', '25A', '25B', '27A', '27B', '29A', '29B', '31A', '31B', '28A', '28B', '28C', '30A', '30B', '33A', '33B', '32A', '32B', '35A', '35B', '34A', '34B', '37A', '37B', '36A', '36B', '39A', '39B', '38A', '38B', '41A', '41B', '40A', '40B', '43A', '43B', '42A', '42B', '45A', '45B', '47A', '47B', '46A', '46B', '44A', '44B', '44C', '48A', '48B'],
@@ -109,7 +115,8 @@
 	      view: '',
 	      emptyBeds: {},
 	      assignment: [],
-	      nurses: {}
+	      nurses: {},
+	      loggedIn: false
 	    };
 	    return _this;
 	  }
@@ -131,10 +138,12 @@
 	  }, {
 	    key: 'enter',
 	    value: function enter(event) {
-	      if (event.keyCode === 13) {
-	        var value = event.target.value;
-
-	        if (value.slice(0, 3) === 'add') {
+	      var value = event.target.value;
+	      if (event.keyCode === 13 && this.state.loggedIn) {
+	        if (value.slice(0, 6) === 'logout') {
+	          event.target.value = '';
+	          this.logout(value);
+	        } else if (value.slice(0, 3) === 'add') {
 	          event.target.value = '';
 	          this.add(value);
 	        } else if (value.slice(0, 5) === 'empty') {
@@ -153,7 +162,41 @@
 	          event.target.value = '';
 	          this.setState({ view: value });
 	        }
+	      } else if (event.keyCode === 13) {
+	        if (value.slice(0, 5) === 'login') {
+	          event.target.value = '';
+	          this.login(value);
+	        } else if (value.slice(0, 8) === 'password') {
+	          event.target.value = '';
+	          this.validate(value);
+	        } else {
+	          event.target.value = '';
+	          this.setState({ view: 'error' });
+	        }
 	      }
+	    }
+	  }, {
+	    key: 'enterPass',
+	    value: function enterPass(event) {
+	      if (event.keyCode === 13) {
+	        this.validate(event.target.value);
+	      }
+	    }
+	  }, {
+	    key: 'login',
+	    value: function login(value) {
+	      var username = value.split(' ')[1];
+	      if (username === 's1akr') this.setState({ view: 'password' });
+	    }
+	  }, {
+	    key: 'logout',
+	    value: function logout(value) {
+	      this.setState({ loggedIn: false });
+	    }
+	  }, {
+	    key: 'validate',
+	    value: function validate(value) {
+	      if (value === 's1akkin4668c') this.setState({ view: 'main', loggedIn: true });
 	    }
 	  }, {
 	    key: 'add',
@@ -216,6 +259,30 @@
 	  }, {
 	    key: 'assign',
 	    value: function assign() {
+	      function randomSpread(arr) {
+	        var arr1 = [];
+	        var arr2 = [];
+	        var res = [];
+	        for (var i = 0; i < arr[0]; i++) {
+	          arr1.push(arr[1]);
+	        }
+	        for (var _i = 0; _i < arr[2]; _i++) {
+	          arr2.push(arr[3]);
+	        }
+	        res = arr1.concat(arr2);
+	        shuffle(res);
+	        return res;
+	      }
+
+	      function shuffle(a) {
+	        var j, x, i;
+	        for (i = a.length; i; i--) {
+	          j = Math.floor(Math.random() * i);
+	          x = a[i - 1];
+	          a[i - 1] = a[j];
+	          a[j] = x;
+	        }
+	      }
 	      var occupied = [].concat(_toConsumableArray(this.state.occupied));
 	      var census = occupied.length;
 	      var nurses = [].concat(_toConsumableArray(this.state.onduty));
@@ -243,38 +310,14 @@
 	        var shortPatientsPer = Math.floor(_census / _nurses.length);
 	        var spread = randomSpread([shortRuns, shortPatientsPer, longRuns, longPatientsPer]);
 
-	        for (var _i = 0; _i < _nurses.length; _i++) {
+	        for (var _i2 = 0; _i2 < _nurses.length; _i2++) {
 	          assignment.push(_occupied.splice(0, spread.shift()));
 	        }
 	      }
 
 	      this.setState({ assignment: assignment, view: 'assign' });
+	    } // assign()
 
-	      function randomSpread(arr) {
-	        var arr1 = [];
-	        var arr2 = [];
-	        var res = [];
-	        for (var _i2 = 0; _i2 < arr[0]; _i2++) {
-	          arr1.push(arr[1]);
-	        }
-	        for (var _i3 = 0; _i3 < arr[2]; _i3++) {
-	          arr2.push(arr[3]);
-	        }
-	        res = arr1.concat(arr2);
-	        shuffle(res);
-	        return res;
-	      }
-
-	      function shuffle(a) {
-	        var j, x, i;
-	        for (i = a.length; i; i--) {
-	          j = Math.floor(Math.random() * i);
-	          x = a[i - 1];
-	          a[i - 1] = a[j];
-	          a[j] = x;
-	        }
-	      }
-	    }
 	  }, {
 	    key: 'select',
 	    value: function select(event) {
@@ -341,6 +384,24 @@
 	          nurses: this.state.onduty
 	        })
 	      );
+
+	      var error = _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_input2.default, { enter: this.enter }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'error container' },
+	          'Access denied!!'
+	        )
+	      );
+
+	      var pass = _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_password2.default, { enter: this.enterPass })
+	      );
+
 	      switch (this.state.view) {
 	        case 'nurses':
 	          return nurses;
@@ -348,6 +409,10 @@
 	          return assign;
 	        case 'display':
 	          return display;
+	        case 'password':
+	          return pass;
+	        case 'error':
+	          return error;
 	        default:
 	          return input;
 	      }
@@ -21439,20 +21504,25 @@
 	        this.props.assignment.map(function (ar, i) {
 	          return _react2.default.createElement(
 	            'div',
-	            null,
+	            { key: i },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'header' },
 	              _react2.default.createElement(
 	                'span',
-	                { className: 'name', key: i },
+	                { className: 'name' },
 	                _this2.props.nurses[i]
+	              ),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'num' },
+	                ar.length
 	              )
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'body' },
-	              _react2.default.createElement(_run2.default, { run: ar, key: i })
+	              _react2.default.createElement(_run2.default, { run: ar })
 	            )
 	          );
 	        })
@@ -21475,48 +21545,25 @@
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Run = function (_Component) {
-	  _inherits(Run, _Component);
-
-	  function Run() {
-	    _classCallCheck(this, Run);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Run).apply(this, arguments));
-	  }
-
-	  _createClass(Run, [{
-	    key: "render",
-	    value: function render() {
+	var Run = function Run(props) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "run" },
+	    props.run.map(function (el, i) {
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "run" },
-	        this.props.run.map(function (el, i) {
-	          return _react2.default.createElement(
-	            "span",
-	            { className: "room", key: i },
-	            el
-	          );
-	        })
+	        "span",
+	        { className: "room", key: i },
+	        el
 	      );
-	    }
-	  }]);
-
-	  return Run;
-	}(_react.Component);
+	    })
+	  );
+	};
 
 	exports.default = Run;
 
@@ -21632,18 +21679,13 @@
 	        _react2.default.createElement(
 	          "div",
 	          { id: "maininput" },
-	          _react2.default.createElement("input", { name: "emptyBeds",
+	          _react2.default.createElement("input", {
 	            type: "text",
 	            placeholder: "Enter commands here ...",
 	            onKeyDown: this.props.enter,
 	            autoFocus: true,
 	            id: "main"
-	          }),
-	          _react2.default.createElement(
-	            "span",
-	            { className: "nothide" },
-	            this.props.clear
-	          )
+	          })
 	        )
 	      );
 	    }
@@ -21692,10 +21734,10 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "container" },
+	        { className: "container display" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "container-2col" },
+	          { className: "container-2col large-col" },
 	          _react2.default.createElement(
 	            "h2",
 	            null,
@@ -21711,7 +21753,7 @@
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          { className: "container-2col" },
+	          { className: "container-2col small-col" },
 	          _react2.default.createElement(
 	            "h2",
 	            null,
@@ -21767,7 +21809,7 @@
 
 
 	// module
-	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n}\n\nh1 {\n  font-size: 32px;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n}\n\n.container-2col {\n  width: 50%;\n  display: inline-block;\n  margin: 0 auto;\n}\n\n#census {\n  font-size: 36px;\n}\n\n.hide {\n  display: none;\n}\n", ""]);
+	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n}\n\nh1 {\n  font-size: 32px;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.num {\n  font-size: 23px;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n}\n\n.container-2col {\n  display: inline-block;\n  margin: 0 auto;\n}\n\n.large-col {\n  width: 70%;\n}\n\n.small-col {\n  width: 30%;\n}\n\n#census {\n  font-size: 36px;\n}\n\n.hide {\n  display: none;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
 
 	// exports
 
@@ -22079,6 +22121,47 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Password = function Password(props) {
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "h1",
+	      null,
+	      "CNA Assign ..."
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      { id: "maininput" },
+	      _react2.default.createElement("input", {
+	        type: "password",
+	        placeholder: "Enter password here ...",
+	        onKeyDown: props.enter,
+	        autoFocus: true,
+	        id: "main"
+	      })
+	    )
+	  );
+	};
+
+	exports.default = Password;
 
 /***/ }
 /******/ ]);

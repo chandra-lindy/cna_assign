@@ -8,12 +8,13 @@ export default class Assign extends Component {
       <div className="container">
         {this.props.assignment.map((ar, i) => {
           return (
-            <div>
+            <div key={i}>
               <div className="header">
-                <span className="name" key={i}>{this.props.nurses[i]}</span>
+                <span className="name">{this.props.nurses[i]}</span>
+                <span className="num">{ar.length}</span>
               </div>
               <div className="body">
-                <Run run={ar} key={i}/>
+                <Run run={ar}/>
               </div>
             </div>
           );
