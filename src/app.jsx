@@ -257,10 +257,15 @@ class App extends Component {
     const display = (
       <div>
         <Input enter={this.enter}/>
-        <Display
-          emptyBeds={this.state.emptyBeds}
-          census={this.state.census}
-        />
+        <div className="container">
+          <EmptyBeds
+            classStr='container-2col large-col'
+            emptyBeds={this.state.emptyBeds}
+          />
+          <Census
+            classStr='container-2col small-col'
+            census={this.state.census}
+        </div>
       </div>
     );
 
