@@ -16,13 +16,12 @@ app.delete('/nurse', nurseCtrl.remove);
 app.get('/nurses', nurseCtrl.index);
 app.post('/nurse', nurseCtrl.post);
 
-mongoose.connect('mongodb://localhost/db', () => {
-  console.log('connected to local mongoDB');
+mongoose.connect('mongodb://heroku_5m0z7q6h:v758g3gdmrbv8su95hvjlckiuk@ds019826.mlab.com:19826/heroku_5m0z7q6h', () => {
+  console.log('connected to mLab mongoDB');
 });
 
-app.listen(3000, function () {
-  console.log('Express listening on port 3000');
+app.listen(process.env.PORT || 3000, function () {
+  console.log('Express up and running');
 });
 
 module.exports = app;
-

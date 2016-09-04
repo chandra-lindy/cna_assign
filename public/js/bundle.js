@@ -66,19 +66,19 @@
 
 	var _input2 = _interopRequireDefault(_input);
 
-	var _emptyBeds = __webpack_require__(177);
+	var _emptyBeds = __webpack_require__(176);
 
 	var _emptyBeds2 = _interopRequireDefault(_emptyBeds);
 
-	var _census2 = __webpack_require__(178);
+	var _census2 = __webpack_require__(177);
 
 	var _census3 = _interopRequireDefault(_census2);
 
-	var _password = __webpack_require__(179);
+	var _password = __webpack_require__(178);
 
 	var _password2 = _interopRequireDefault(_password);
 
-	__webpack_require__(180);
+	__webpack_require__(179);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -231,7 +231,6 @@
 	        first: value[1],
 	        last: value[2]
 	      };
-	      console.log(obj);
 	      var post = $.ajax({
 	        method: 'DELETE',
 	        url: '/nurse',
@@ -21686,8 +21685,7 @@
 	exports.default = Input;
 
 /***/ },
-/* 176 */,
-/* 177 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21724,7 +21722,7 @@
 	exports.default = EmptyBeds;
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21759,7 +21757,7 @@
 	exports.default = Census;
 
 /***/ },
-/* 179 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21800,16 +21798,16 @@
 	exports.default = Password;
 
 /***/ },
-/* 180 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(181);
+	var content = __webpack_require__(180);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(183)(content, {});
+	var update = __webpack_require__(182)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -21826,10 +21824,10 @@
 	}
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(182)();
+	exports = module.exports = __webpack_require__(181)();
 	// imports
 
 
@@ -21840,7 +21838,7 @@
 
 
 /***/ },
-/* 182 */
+/* 181 */
 /***/ function(module, exports) {
 
 	/*
@@ -21896,7 +21894,7 @@
 
 
 /***/ },
-/* 183 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
