@@ -136,7 +136,6 @@ class App extends Component {
       first: value[1],
       last: value[2]
     };
-    console.log(obj);
     const post = $.ajax({
       method: 'DELETE',
       url: '/nurse',
