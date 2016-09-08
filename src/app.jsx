@@ -59,22 +59,22 @@ class App extends Component {
   enter(event) {
     let value = event.target.value;
     if(event.keyCode === 13 && this.state.loggedIn) {
-      if (value.slice(0, 6) === 'logout') {
+      if (value.slice(0, 6).toLowerCase() === 'logout') {
         event.target.value = '';
         this.logout(value);
-      } else if (value.slice(0, 3) === 'add') {
+      } else if (value.slice(0, 3).toLowerCase() === 'add') {
         event.target.value = '';
         this.add(value);
-      } else if (value.slice(0, 5) === 'empty') {
+      } else if (value.slice(0, 5).toLowerCase() === 'empty') {
         event.target.value = '';
         this.empty(value);
-      } else if (value === 'clear') {
+      } else if (value.toLowerCase() === 'clear') {
         event.target.value = '';
         this.reset();
-      } else if (value === 'assign') {
+      } else if (value.toLowerCase() === 'assign') {
         event.target.value = '';
         this.assign();
-      } else if (value.slice(0, 6) === 'remove') {
+      } else if (value.slice(0, 6).toLowerCase() === 'remove') {
         event.target.value = '';
         this.remove(value);
       } else {
@@ -82,10 +82,10 @@ class App extends Component {
         this.setState({view: value});
       }
     } else if (event.keyCode === 13) {
-      if (value.slice(0, 5) === 'login') {
+      if (value.slice(0, 5).toLowerCase() === 'login') {
         event.target.value = '';
         this.login(value);
-      } else if (value.slice(0, 8) === 'password') {
+      } else if (value.slice(0, 8).toLowerCase() === 'password') {
         event.target.value = '';
         this.validate(value);
       } else {
@@ -189,6 +189,7 @@ class App extends Component {
         a[j] = x;
       }
     }
+    
     const occupied = this.state.occupied.length ? [...this.state.occupied] : [...this.state.beds];
     const census = occupied.length;
     const nurses = [...this.state.onduty];
