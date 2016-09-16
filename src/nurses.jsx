@@ -10,9 +10,10 @@ export default class Nurses extends Component {
               <div className="nurse" key={i}>
                 <input
                   type="checkbox"
-                  value={el.first + ' ' + el.last}
-                  onChange={this.props.select}>
-                </input><span className="name">{el.first + ' ' + el.last}</span>
+                  value={`${el.first} ${el.last}`}
+                  onChange={this.props.select}
+                />
+                <span className="name">{`${el.first} ${el.last}`}</span>
               </div>
             );
           })}

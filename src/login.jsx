@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Login = (props) => (
   <div>
@@ -15,4 +15,4 @@ const Login = (props) => (
   </div>
 );
 
-export default Input;
+export default Login;
