@@ -5,7 +5,7 @@ A custom web app built for Ivy Creek Healthcare and Wellness Centre.
 This app solves the daily CNA assignment problem.  The main function is
 to take in the number of empty beds and names of nurses for the shift
 as input and outputs an evenly distributed bed assignments according to
-vacinity.  Thus each assignment will consist of rooms that are adjacents
+vicinity.  Thus each assignment will consist of rooms that are adjacent
 minus empty beds of course.
 
 Give it a try, and contact me for feedback and feature request...
@@ -29,7 +29,7 @@ Don't worry, there are only a few keywords.
 
 ### Adding and Removing Nurses
 
-To input nurse's assisstants you have on staff. This is achieved by using
+To input nurse's assistants you have on staff. This is achieved by using
 the `add` keyword which will insert that nurse into the database, as follows:
 
 ~~~~
@@ -57,7 +57,7 @@ census calculated by subtracting number of empty beds from total available.
 
 To input the empty beds for the shift, use the `empty` keyword followed by
 room numbers and bed letters separated by a space (bed letters are case
-incensitive), like so:
+insensitive), like so:
 
 ~~~~
 empty 2 4 7a 11a 33b 22c
