@@ -1,30 +1,30 @@
 module.exports = {
-  entry: "./src/app.jsx",
+  entry: './src/app.jsx',
   output: {
-      path: __dirname + '/public/js',
-      filename: "bundle.js"
+    path: __dirname + '/public/js',
+    filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   },
   module: {
-      loaders: [
-          {
-            test: /\.css$/,
-            loaders: ['style', 'css']
-          },
-          {
-            test: /\.scss$/,
-            loaders: ['style', 'css', 'sass']
-          },
-          {
-            test: /\.jsx?$/,
-            loader: 'babel-loader',
-            exclude: /(node_modules)/,
-            query: {
-              presets: ['es2015', 'react']
-            }
-          }
-      ]
-  }
+    loaders: [
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass'],
+      },
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules)/,
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      },
+    ],
+  },
 };

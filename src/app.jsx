@@ -10,7 +10,7 @@ import '../public/style.css';
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.enter = this.enter.bind(this);
     this.refresh = this.refresh.bind(this);
@@ -42,7 +42,7 @@ class App extends Component {
       emptyBeds: [],
       assignment: [],
       nurses: [],
-      loggedIn: false
+      loggedIn: false,
     };
   }
 
@@ -52,13 +52,13 @@ class App extends Component {
 
   refresh() {
     $.get('/nurses').then((data) => {
-      this.setState({nurses: data});
+      this.setState({ nurses: data });
     });
   }
 
   enter(event) {
-    let value = event.target.value;
-    if(event.keyCode === 13 && this.state.loggedIn) {
+    const value = event.target.value;
+    if (event.keyCode === 13 && this.state.loggedIn) {
       if (value.slice(0, 6).toLowerCase() === 'logout') {
         event.target.value = '';
         this.logout(value);
@@ -79,7 +79,7 @@ class App extends Component {
         this.remove(value);
       } else {
         event.target.value = '';
-        this.setState({view: value});
+        this.setState({ view: value });
       }
     } else if (event.keyCode === 13) {
       if (value.slice(0, 5).toLowerCase() === 'login') {
@@ -106,7 +106,7 @@ class App extends Component {
     if (username === 'nurse') this.setState({ view: 'password' });
   }
 
-  logout(value) {
+  logout() {
     this.setState({ loggedIn: false });
   }
 
@@ -118,12 +118,12 @@ class App extends Component {
     value = value.split(' ');
     const obj = {
       first: value[1],
-      last: value[2]
+      last: value[2],
     };
     const post = $.ajax({
       method: 'POST',
       url: '/nurse',
-      data: obj
+      data: obj,
     });
     post.then(() => {
       this.refresh();
@@ -134,12 +134,12 @@ class App extends Component {
     value = value.split(' ');
     const obj = {
       first: value[1],
-      last: value[2]
+      last: value[2],
     };
     const post = $.ajax({
       method: 'DELETE',
       url: '/nurse',
-      data: obj
+      data: obj,
     });
     post.then(() => {
       this.refresh();
@@ -148,30 +148,18 @@ class App extends Component {
 
   empty(value) {
     function remove(emptyBeds, beds) {
-      return beds.filter(el => {
-        if (emptyBeds.indexOf(el) < 0) return true;
-      });
+      return beds.filter(el => emptyBeds.indexOf(el) < 0);
     }
-    let emptyBeds = value.toUpperCase().split(' ');
+    const emptyBeds = value.toUpperCase().split(' ');
     emptyBeds.shift();
     const occupied = remove(emptyBeds, [...this.state.beds]);
     const census = occupied.length;
     this.setState({
-      occupied: occupied,
-      census: census,
-      emptyBeds: emptyBeds,
-      view: 'display'
+      occupied,
+      census,
+      emptyBeds,
+      view: 'display',
     });
-  }
-
-  function shuffle(a) {
-    var j, x, i;
-    for (i = a.length; i; i--) {
-      j = Math.floor(Math.random() * i);
-      x = a[i - 1];
-      a[i - 1] = a[j];
-      a[j] = x;
-    }
   }
 
   assign() {
@@ -190,10 +178,22 @@ class App extends Component {
       return res;
     }
 
+    function shuffle(a) {
+      let j;
+      let x;
+      let i;
+      for (i = a.length; i; i -= 1) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+      }
+    }
+
     const occupied = this.state.occupied.length ? [...this.state.occupied] : [...this.state.beds];
     const census = occupied.length;
     const nurses = [...this.state.onduty];
-    let assignment = [];
+    const assignment = [];
 
     if (census % nurses.length === 0) {
       // even spread
@@ -201,12 +201,11 @@ class App extends Component {
       let j = 0;
       let k = patientsPer;
 
-      for (let i = 0; i < nurses.length; i++) {
+      for (let i = 0; i < nurses.length; i += 1) {
         assignment.push(occupied.slice(j, k));
         j += patientsPer;
         k += patientsPer;
       }
-
     } else {
       // uneven spread
       const occupied = this.state.occupied.length ? [...this.state.occupied] : [...this.state.beds];
@@ -218,12 +217,12 @@ class App extends Component {
       const shortPatientsPer = Math.floor(census / nurses.length);
       const spread = randomSpread([shortRuns, shortPatientsPer, longRuns, longPatientsPer]);
 
-      for (let i = 0; i < nurses.length; i++) {
+      for (let i = 0; i < nurses.length; i += 1) {
         assignment.push(occupied.splice(0, spread.shift()));
       }
     }
 
-    this.setState({assignment: assignment, view: 'assign'});
+    this.setState({ assignment, view: 'assign' });
   } // assign()
 
   select(event) {
@@ -249,7 +248,7 @@ class App extends Component {
         view: '',
         emptyBeds: {},
         assignment: [],
-        nurses: data
+        nurses: data,
       });
     });
   }
@@ -257,14 +256,14 @@ class App extends Component {
   render() {
     const display = (
       <div>
-        <Input enter={this.enter}/>
+        <Input enter={this.enter} />
         <div className="container">
           <EmptyBeds
-            classStr='container-2col large-col'
+            classStr="container-2col large-col"
             emptyBeds={this.state.emptyBeds}
           />
           <Census
-            classStr='container-2col small-col'
+            classStr="container-2col small-col"
             census={this.state.census}
           />
         </div>
@@ -281,7 +280,7 @@ class App extends Component {
 
     const nurses = (
       <div>
-        <Input enter={this.enter}/>
+        <Input enter={this.enter} />
         <Nurses
           nurses={this.state.nurses}
           select={this.select}
@@ -303,14 +302,14 @@ class App extends Component {
 
     const error = (
       <div>
-       <Input enter={this.enter}/>
-       <div className="error container">Access denied!!</div>
+        <Input enter={this.enter} />
+        <div className="error container">Access denied!!</div>
       </div>
     );
 
     const pass = (
       <div>
-        <Password enter={this.enterPass}/>
+        <Password enter={this.enterPass} />
       </div>
     );
 
