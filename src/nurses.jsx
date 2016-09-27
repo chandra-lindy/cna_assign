@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Nurses extends React.component {
+export default class Nurses extends React.Component {
 
   render() {
     return (

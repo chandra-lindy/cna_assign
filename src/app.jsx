@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import Assign from './assign.jsx';
 import Nurses from './nurses.jsx';
@@ -8,7 +8,7 @@ import Census from './census.jsx';
 import Password from './password.jsx';
 import '../public/style.css';
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -257,7 +257,7 @@ class App extends Component {
     const display = (
       <div>
         <Input enter={this.enter} />
-        <div className="container">
+        <div className="container display">
           <EmptyBeds
             classStr="container-2col large-col"
             emptyBeds={this.state.emptyBeds}

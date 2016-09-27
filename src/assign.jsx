@@ -1,7 +1,7 @@
 import React from 'react';
 import Run from './run.jsx';
 
-export default class Assign extends React.component {
+export default class Assign extends React.Component {
 
   render() {
     return (

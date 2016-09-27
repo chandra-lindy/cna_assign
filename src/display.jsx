@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default class Display extends React.component {
-
+export default class Display extends React.Component {
   render() {
     return (
       <div className="container display">
