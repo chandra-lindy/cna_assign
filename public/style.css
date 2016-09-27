@@ -15,10 +15,16 @@ html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='but
 body {
   padding-top: 80px;
   font-family: monospace, sans-serif;
+  background-image:
+  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(http://www.escapeartist.com/ecuador/wp-content/uploads/sites/10/2013/11/healthcare.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 h1 {
   font-size: 32px;
+  color: white;
 }
 
 input[type="checkbox"] {
@@ -75,13 +81,23 @@ input#main{
   border-radius: 5px;
 }
 
+.display {
+  color: white;
+}
+
 .num {
   font-size: 23px;
+  color: white;
 }
 
 .name {
   font-size: 32px;
   margin-left: 10px;
+  color: white;
+}
+
+.nurse .name {
+  color: black;
 }
 
 .container-2col {
