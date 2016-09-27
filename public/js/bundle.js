@@ -90,8 +90,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var App = function (_Component) {
-	  _inherits(App, _Component);
+	var App = function (_React$Component) {
+	  _inherits(App, _React$Component);
 
 	  function App(props) {
 	    _classCallCheck(this, App);
@@ -144,22 +144,22 @@
 	    value: function enter(event) {
 	      var value = event.target.value;
 	      if (event.keyCode === 13 && this.state.loggedIn) {
-	        if (value.slice(0, 6) === 'logout') {
+	        if (value.slice(0, 6).toLowerCase() === 'logout') {
 	          event.target.value = '';
 	          this.logout(value);
-	        } else if (value.slice(0, 3) === 'add') {
+	        } else if (value.slice(0, 3).toLowerCase() === 'add') {
 	          event.target.value = '';
 	          this.add(value);
-	        } else if (value.slice(0, 5) === 'empty') {
+	        } else if (value.slice(0, 5).toLowerCase() === 'empty') {
 	          event.target.value = '';
 	          this.empty(value);
-	        } else if (value === 'clear') {
+	        } else if (value.toLowerCase() === 'clear') {
 	          event.target.value = '';
 	          this.reset();
-	        } else if (value === 'assign') {
+	        } else if (value.toLowerCase() === 'assign') {
 	          event.target.value = '';
 	          this.assign();
-	        } else if (value.slice(0, 6) === 'remove') {
+	        } else if (value.slice(0, 6).toLowerCase() === 'remove') {
 	          event.target.value = '';
 	          this.remove(value);
 	        } else {
@@ -167,10 +167,10 @@
 	          this.setState({ view: value });
 	        }
 	      } else if (event.keyCode === 13) {
-	        if (value.slice(0, 5) === 'login') {
+	        if (value.slice(0, 5).toLowerCase() === 'login') {
 	          event.target.value = '';
 	          this.login(value);
-	        } else if (value.slice(0, 8) === 'password') {
+	        } else if (value.slice(0, 8).toLowerCase() === 'password') {
 	          event.target.value = '';
 	          this.validate(value);
 	        } else {
@@ -194,7 +194,7 @@
 	    }
 	  }, {
 	    key: 'logout',
-	    value: function logout(value) {
+	    value: function logout() {
 	      this.setState({ loggedIn: false });
 	    }
 	  }, {
@@ -245,7 +245,7 @@
 	    value: function empty(value) {
 	      function remove(emptyBeds, beds) {
 	        return beds.filter(function (el) {
-	          if (emptyBeds.indexOf(el) < 0) return true;
+	          return emptyBeds.indexOf(el) < 0;
 	        });
 	      }
 	      var emptyBeds = value.toUpperCase().split(' ');
@@ -266,10 +266,10 @@
 	        var arr1 = [];
 	        var arr2 = [];
 	        var res = [];
-	        for (var i = 0; i < arr[0]; i++) {
+	        for (var i = 0; i < arr[0]; i += 1) {
 	          arr1.push(arr[1]);
 	        }
-	        for (var _i = 0; _i < arr[2]; _i++) {
+	        for (var _i = 0; _i < arr[2]; _i += 1) {
 	          arr2.push(arr[3]);
 	        }
 	        res = arr1.concat(arr2);
@@ -278,14 +278,17 @@
 	      }
 
 	      function shuffle(a) {
-	        var j, x, i;
-	        for (i = a.length; i; i--) {
+	        var j = void 0;
+	        var x = void 0;
+	        var i = void 0;
+	        for (i = a.length; i; i -= 1) {
 	          j = Math.floor(Math.random() * i);
 	          x = a[i - 1];
 	          a[i - 1] = a[j];
 	          a[j] = x;
 	        }
 	      }
+
 	      var occupied = this.state.occupied.length ? [].concat(_toConsumableArray(this.state.occupied)) : [].concat(_toConsumableArray(this.state.beds));
 	      var census = occupied.length;
 	      var nurses = [].concat(_toConsumableArray(this.state.onduty));
@@ -297,7 +300,7 @@
 	        var j = 0;
 	        var k = patientsPer;
 
-	        for (var i = 0; i < nurses.length; i++) {
+	        for (var i = 0; i < nurses.length; i += 1) {
 	          assignment.push(occupied.slice(j, k));
 	          j += patientsPer;
 	          k += patientsPer;
@@ -313,7 +316,7 @@
 	        var shortPatientsPer = Math.floor(_census / _nurses.length);
 	        var spread = randomSpread([shortRuns, shortPatientsPer, longRuns, longPatientsPer]);
 
-	        for (var _i2 = 0; _i2 < _nurses.length; _i2++) {
+	        for (var _i2 = 0; _i2 < _nurses.length; _i2 += 1) {
 	          assignment.push(_occupied.splice(0, spread.shift()));
 	        }
 	      }
@@ -354,7 +357,7 @@
 	        _react2.default.createElement(_input2.default, { enter: this.enter }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'container' },
+	          { className: 'container display' },
 	          _react2.default.createElement(_emptyBeds2.default, {
 	            classStr: 'container-2col large-col',
 	            emptyBeds: this.state.emptyBeds
@@ -431,7 +434,7 @@
 	  }]);
 
 	  return App;
-	}(_react.Component);
+	}(_react2.default.Component);
 
 	(0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('content'));
 
@@ -21495,8 +21498,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Assign = function (_Component) {
-	  _inherits(Assign, _Component);
+	var Assign = function (_React$Component) {
+	  _inherits(Assign, _React$Component);
 
 	  function Assign() {
 	    _classCallCheck(this, Assign);
@@ -21542,7 +21545,7 @@
 	  }]);
 
 	  return Assign;
-	}(_react.Component);
+	}(_react2.default.Component);
 
 	exports.default = Assign;
 
@@ -21602,8 +21605,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Nurses = function (_Component) {
-	  _inherits(Nurses, _Component);
+	var Nurses = function (_React$Component) {
+	  _inherits(Nurses, _React$Component);
 
 	  function Nurses() {
 	    _classCallCheck(this, Nurses);
@@ -21625,12 +21628,13 @@
 	            { className: "nurse", key: i },
 	            _react2.default.createElement("input", {
 	              type: "checkbox",
-	              value: el.first + ' ' + el.last,
-	              onChange: _this2.props.select }),
+	              value: el.first + " " + el.last,
+	              onChange: _this2.props.select
+	            }),
 	            _react2.default.createElement(
 	              "span",
 	              { className: "name" },
-	              el.first + ' ' + el.last
+	              el.first + " " + el.last
 	            )
 	          );
 	        })
@@ -21639,7 +21643,7 @@
 	  }]);
 
 	  return Nurses;
-	}(_react.Component);
+	}(_react2.default.Component);
 
 	exports.default = Nurses;
 
@@ -21832,7 +21836,7 @@
 
 
 	// module
-	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n}\n\nh1 {\n  font-size: 32px;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.num {\n  font-size: 23px;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n}\n\n.container-2col {\n  display: inline-block;\n  margin: 0 auto;\n}\n\n.large-col {\n  width: 87%;\n}\n\n.small-col {\n  width: 13%;\n}\n\n#census {\n  font-size: 28px;\n  display: inline-block;\n  margin-left: 15px;\n}\n\n.hide {\n  display: none;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
+	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n  background-image:\n  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(http://www.escapeartist.com/ecuador/wp-content/uploads/sites/10/2013/11/healthcare.jpg);\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n}\n\nh1 {\n  font-size: 32px;\n  color: white;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.display {\n  color: white;\n}\n\n.num {\n  font-size: 23px;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n}\n\n.container-2col {\n  display: inline-block;\n  margin: 0 auto;\n}\n\n.large-col {\n  width: 87%;\n}\n\n.small-col {\n  width: 13%;\n}\n\n#census {\n  font-size: 28px;\n  display: inline-block;\n  margin-left: 15px;\n}\n\n.hide {\n  display: none;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
 
 	// exports
 
