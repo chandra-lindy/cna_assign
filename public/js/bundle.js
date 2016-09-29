@@ -207,17 +207,22 @@
 	    value: function add(value) {
 	      var _this3 = this;
 
+	      console.log('inside add function');
 	      value = value.split(' ');
 	      var obj = {
 	        first: value[1],
-	        last: value[2]
+	        last: value[2],
+	        username: value[3],
+	        password: value[4]
 	      };
+	      console.log('obj in add function: ', obj);
 	      var post = $.ajax({
 	        method: 'POST',
 	        url: '/nurse',
 	        data: obj
 	      });
 	      post.then(function () {
+	        console.log('post.then function');
 	        _this3.refresh();
 	      });
 	    }
@@ -21836,7 +21841,7 @@
 
 
 	// module
-	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n  background-image:\n  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(http://www.escapeartist.com/ecuador/wp-content/uploads/sites/10/2013/11/healthcare.jpg);\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n}\n\nh1 {\n  font-size: 32px;\n  color: white;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.display {\n  color: white;\n}\n\n.num {\n  font-size: 23px;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n}\n\n.container-2col {\n  display: inline-block;\n  margin: 0 auto;\n}\n\n.large-col {\n  width: 87%;\n}\n\n.small-col {\n  width: 13%;\n}\n\n#census {\n  font-size: 28px;\n  display: inline-block;\n  margin-left: 15px;\n}\n\n.hide {\n  display: none;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
+	exports.push([module.id, "html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {\n  padding: 0;\n  border: 0;\n  margin: 0;\n  font-size: 100%;\n  font: inherit;\n  box-sizing: border-box;\n  list-style: none;\n}\n\n:focus {\n  outline: 0;\n}\n\nbody {\n  padding-top: 80px;\n  font-family: monospace, sans-serif;\n  background-image:\n  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(http://www.escapeartist.com/ecuador/wp-content/uploads/sites/10/2013/11/healthcare.jpg);\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n}\n\nh1 {\n  font-size: 32px;\n  color: white;\n}\n\ninput[type=\"checkbox\"] {\n  width: 30px;\n  height: 30px;\n  border-radius: 5px;\n}\n\ninput#main{\n  width: 80%;\n  display: block;\n  line-height: 1.5;\n  font-size: 23px;\n  margin: 30px auto;\n  border: 0;\n  outline: none;\n  background-color: lightgrey;\n  border-radius: 5px;\n  padding: 10px 0px 10px 25px;\n}\n\n#content {\n  width: 80%;\n  margin: 0 auto;\n}\n\n.run {\n  display: inline-block;\n  margin: 10px 0px 20px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.room {\n  font-size: 24px;\n  display: inline-block;\n  padding: 3px 10px 3px 10px;\n}\n\n.container-mul {\n  width: 80%;\n  margin: 10px auto;\n  display: flex;\n}\n\n.container {\n  width: 80%;\n  margin: 10px auto;\n}\n\n.nurse {\n  margin: 10px 0px 10px 0px;\n  background-color: lightgrey;\n  border-radius: 5px;\n}\n\n.display {\n  color: white;\n}\n\n.num {\n  font-size: 23px;\n  color: white;\n}\n\n.name {\n  font-size: 32px;\n  margin-left: 10px;\n  color: white;\n}\n\n.nurse .name {\n  color: black;\n}\n\n.container-2col {\n  display: inline-block;\n  margin: 0 auto;\n}\n\n.large-col {\n  width: 87%;\n}\n\n.small-col {\n  width: 13%;\n}\n\n#census {\n  font-size: 28px;\n  display: inline-block;\n  margin-left: 15px;\n}\n\n.hide {\n  display: none;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
 
 	// exports
 

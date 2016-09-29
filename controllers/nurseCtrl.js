@@ -15,7 +15,14 @@ function show(req, res) {
 }
 
 function post(req, res) {
-  Nurses.create({ first: req.body.first, last: req.body.last }, function(err, result) {
+  console.log('res.body in post: ', req.body);
+  Nurses.create({
+    first: req.body.first,
+    last: req.body.last,
+    username: req.body.username,
+    password: req.body.password,
+  }, function(err, result) {
+    if (err) console.log('mongoose create error: ', err);
     res.send('posted');
   });
 }
