@@ -86,5 +86,10 @@ behave as if you had just logged in.
 
 As per requested, the following features are being implemented in one form or another:
 - UI/UX redesign
-- admin privileges
-- nurse view individual assignment
+- admin privileges for adding, removing nurses and assigning assignments
+- nurse assistants view to only show individual assignment
+
+### Known issues
+
+- using clear command disables display command
+- continually using the clear command intermittently breaks the entire app
