@@ -115,7 +115,6 @@ class App extends React.Component {
   }
 
   add(value) {
-    console.log('inside add function');
     value = value.split(' ');
     const obj = {
       first: value[1],
@@ -123,14 +122,12 @@ class App extends React.Component {
       username: value[3],
       password: value[4],
     };
-    console.log('obj in add function: ', obj);
     const post = $.ajax({
       method: 'POST',
       url: '/nurse',
       data: obj,
     });
     post.then(() => {
-      console.log('post.then function');
       this.refresh();
     });
   }
