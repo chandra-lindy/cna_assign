@@ -42,6 +42,7 @@ class App extends React.Component {
       emptyBeds: [],
       assignment: [],
       nurses: [],
+      username: '',
       loggedIn: false,
     };
   }
@@ -85,9 +86,6 @@ class App extends React.Component {
       if (value.slice(0, 5).toLowerCase() === 'login') {
         event.target.value = '';
         this.login(value);
-      } else if (value.slice(0, 8).toLowerCase() === 'password') {
-        event.target.value = '';
-        this.validate(value);
       } else {
         event.target.value = '';
         this.setState({ view: 'error' });
@@ -103,15 +101,25 @@ class App extends React.Component {
 
   login(value) {
     const username = value.split(' ')[1];
-    if (username === 'nurse') this.setState({ view: 'password' });
+    this.setState({ username, view: 'password' });
   }
 
   logout() {
     this.setState({ loggedIn: false });
+    this.reset();
   }
 
   validate(value) {
-    if (value === 'betty') this.setState({ view: 'main', loggedIn: true });
+    $.ajax({
+      method: 'POST',
+      url: '/login',
+      data: {
+        username: this.state.username,
+        password: value,
+      },
+    }).then((password) => {
+      if (password.matches) this.setState({ view: 'main', loggedIn: true });
+    });
   }
 
   add(value) {
@@ -248,8 +256,9 @@ class App extends React.Component {
         occupied: {},
         census: 98,
         view: '',
-        emptyBeds: {},
+        emptyBeds: [],
         assignment: [],
+        username: '',
         nurses: data,
       });
     });
