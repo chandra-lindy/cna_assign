@@ -91,7 +91,7 @@ As per requested, the following features are being implemented in one form or an
 
 ### Known issues
 
-[x] using clear command disables display command
-[x] logout does not clear screen
-[x] continually using the clear command intermittently breaks the entire app
-[x] display keyword not functioning as intended
+- [x] using clear command disables display command
+- [x] logout does not clear screen
+- [x] continually using the clear command intermittently breaks the entire app
+- [x] display keyword not functioning as intended
