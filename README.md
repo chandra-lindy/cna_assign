@@ -29,11 +29,11 @@ Don't worry, there are only a few keywords.
 
 ### Adding and Removing Nurses
 
-To input nurse's assistants you have on staff. This is achieved by using
-the `add` keyword which will insert that nurse into the database, as follows:
+To input nurse's assistants you have on staff is achieved by using
+the `add` keyword followed by firt name, last name, username and password as follows:
 
 ~~~~
-add Nurse Betty
+add Nurse Betty nbetty pass1234
 ~~~~
 
 To remove a nurse from the database, use the `remove` keyword, followed by
@@ -91,5 +91,7 @@ As per requested, the following features are being implemented in one form or an
 
 ### Known issues
 
-- using clear command disables display command
-- continually using the clear command intermittently breaks the entire app
+[x] using clear command disables display command
+[x] logout does not clear screen
+[x] continually using the clear command intermittently breaks the entire app
+[x] display keyword not functioning as intended
