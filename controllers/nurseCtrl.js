@@ -33,4 +33,16 @@ function remove(req, res) {
   });
 }
 
-module.exports = { index, show, post, remove };
+function login(req, res) {
+  console.log('req.body inside login: ', req.body);
+  Nurses.findOne({ username: req.body.username }, function(err, nurse) {
+    nurse.checkPassword(req.body.password, function(err, matches) {
+      if (err) console.log(err);
+      console.log('checkpassword matches: ', matches);
+      if (matches) res.json({ matches: true });
+      else res.json({ matches: false });
+    });
+  });
+}
+
+module.exports = { index, show, post, remove, login };
